@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,700&display=swap" rel="stylesheet">
+  <title>Harry Potter & Rick and Morty API</title>
+  <style>
+    body {
+      background: #181a20;
+      min-height: 100vh;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    }
+    .navbar-custom {
+      background: #222;
+      border: none;
+      border-radius: 0;
+      box-shadow: 0 2px 8px rgba(60,60,60,0.08);
+    }
+    .navbar-brand {
+      color: #fff !important;
+      font-weight: 600;
+      font-size: 1.3em;
+      letter-spacing: 1px;
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    }
+    .navbar-nav > li > a {
+      color: #e0e0e0 !important;
+      font-weight: 400;
+      font-size: 1em;
+      padding: 12px 18px;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 6px;
+    }
+    .navbar-nav > li > a:hover, .navbar-nav > .open > a {
+      background: #333 !important;
+      color: #fff !important;
+    }
+    .dropdown-menu {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(60,60,60,0.10);
+      border: none;
+      min-width: 180px;
+      padding: 8px 0;
+    }
+    .dropdown-menu > li > a {
+      color: #333 !important;
+      font-weight: 400;
+      font-size: 1em;
+      padding: 8px 20px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .dropdown-menu > li > a:hover {
+      background: #f0f0f0 !important;
+      color: #222 !important;
+    }
+    .navbar-header, .navbar-brand {
+      padding-left: 10px;
+    }
+    .container {
+      margin-top: 0;
+    }
+    .api-section {
+      padding: 2rem 0 1rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .api-section h2 {
+      color: #ffe13b;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+    .search-bar {
+      margin-bottom: 1.5rem;
+      display: flex;
+      gap: 10px;
+    }
+    .search-bar input {
+      background-color: #373b69;
+      border: 2px solid #ffe13b;
+      border-radius: 25px;
+      font-size: 16px;
+      padding: 10px 20px;
+      color: #fff;
+      width: 250px;
+      transition: background 0.3s, border 0.3s;
+    }
+    .search-bar input::placeholder {
+      color: #ffe13b;
+      opacity: 0.7;
+    }
+    .search-bar input:focus {
+      outline: none;
+      background-color: #22254b;
+      border-color: #ffe13b;
+    }
+    .search-bar button {
+      padding: 10px 20px;
+      border-radius: 25px;
+      border: none;
+      background: #ffe13b;
+      color: #373b69;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .search-bar button:hover {
+      background: #373b69;
+      color: #ffe13b;
+    }
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+    }
+    .card {
+      background: #373b69;
+      color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px #0008;
+      width: 260px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 32px #000a;
+    }
+    .card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      background: #fff;
+    }
+    .card-info {
+      padding: 1rem;
+      width: 100%;
+    }
+    .card-info h3 {
+      margin: 0 0 0.5em 0;
+      color: #ffe13b;
+      font-size: 1.2em;
+    }
+    .card-info p {
+      margin: 0.2em 0;
+      font-size: 1em;
+    }
+    .card-info span {
+      display: inline-block;
+      margin-top: 0.5em;
+      color: #e4572e;
+      font-weight: bold;
+    }
+    @media (max-width: 900px) {
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.html">INICIO</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">UNIDAD 1 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="javier01.PHP">TABLA PERSONAJES</a></li>
+          <li><a href="javier02.php">MOSTRAR DATOS</a></li>
+          <li><a href="javier03.php">AGREGAR PERSONAJE</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">UNIDAD 2 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="javier04.php">MOSTRAR DATOS</a></li>
+          <li><a href="javier05.php">AGREGAR ALUMNO</a></li>
+          <li><a href="javier05a.php">AGREGAR Y MOSTRAR ALUMNOS</a></li>
+          <li><a href="sage.php">REGISTRAR PRODUCTOS</a></li>
+          <li><a href="javier06.html">POKEDEX</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">UNIDAD 3 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="javier07.html">PELICULAS</a></li>
+          <li><a href="javier08.html">DRAGON BALL</a></li>
+          <li><a href="javier09.html">HARRY POTTER Y RICK AND MORTY</a></li>
+          <li><a href="javier10.html">Practica Final</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="api-section" id="hp-section">
+    <h2>Harry Potter </h2>
+    <div class="search-bar">
+        <input type="text" id="hp-search" placeholder="Buscar personaje de Harry Potter...">
+        <button onclick="searchHP()">Buscar</button>
+    </div>
+    <div class="cards" id="hp-cards"></div>
+</div>
+
+<div class="api-section" id="rm-section">
+    <h2>Rick and Morty </h2>
+    <div class="search-bar">
+        <input type="text" id="rm-search" placeholder="Buscar personaje de Rick and Morty...">
+        <button onclick="searchRM()">Buscar</button>
+    </div>
+    <div class="cards" id="rm-cards"></div>
+</div>
+
+<script>
+    const API_HP = 'https://hp-api.onrender.com/api/characters';
+    const mainHP = document.getElementById('hp-cards');
+    const formHP = document.getElementById('hp-search');
+    let allHP = [];
+    getHP(API_HP);
+
+    async function getHP(url) {
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('Network response was not ok');
+            const data = await res.json();
+            allHP = data || [];
+            showHP(allHP);
+        } catch (error) {
+            mainHP.innerHTML = '<p style="color: white;">Error loading characters. Please try again later.</p>';
+        }
+    }
+    function showHP(characters) {
+        mainHP.innerHTML = '';
+        characters.forEach(character => {
+            const { name, image, house, actor, species } = character;
+            const el = document.createElement('div');
+            el.classList.add('card');
+            el.innerHTML = `
+                <img src="${image || 'https://via.placeholder.com/320x320?text=No+Image'}" alt="${name}">
+                <div class="card-info">
+                    <h3>${name}</h3>
+                    <p><b>Casa:</b> ${house || ''}</p>
+                    <p><b>Actor:</b> ${actor || 'Desconocido'}</p>
+                    <span>${species || ''}</span>
+                </div>`;
+            mainHP.appendChild(el);
+        });
+    }
+    document.querySelector('#hp-section .search-bar button').onclick = function() {
+        const searchTerm = formHP.value.toLowerCase().trim();
+        if (searchTerm) {
+            const filtered = allHP.filter(c => c.name.toLowerCase().includes(searchTerm));
+            showHP(filtered);
+            formHP.value = '';
+        } else {
+            showHP(allHP);
+        }
+    };
+
+    const API_RM = 'https://rickandmortyapi.com/api/character';
+    const mainRM = document.getElementById('rm-cards');
+    const formRM = document.getElementById('rm-search');
+    let allRM = [];
+    getRM(API_RM);
+
+    async function getRM(url) {
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('Network response was not ok');
+            const data = await res.json();
+            allRM = data.results || [];
+            showRM(allRM);
+        } catch (error) {
+            mainRM.innerHTML = '<p style="color: white;">Error loading characters. Please try again later.</p>';
+        }
+    }
+    function showRM(characters) {
+        mainRM.innerHTML = '';
+        characters.forEach(character => {
+            const { name, image, species, status, gender } = character;
+            const el = document.createElement('div');
+            el.classList.add('card');
+            el.innerHTML = `
+                <img src="${image}" alt="${name}">
+                <div class="card-info">
+                    <h3>${name}</h3>
+                    <p><b>Especie:</b> ${species}</p>
+                    <p><b>Estado:</b> ${status}</p>
+                    <span>${gender}</span>
+                </div>`;
+            mainRM.appendChild(el);
+        });
+    }
+    document.querySelector('#rm-section .search-bar button').onclick = function() {
+        const searchTerm = formRM.value.toLowerCase().trim();
+        if (searchTerm) {
+            const filtered = allRM.filter(c => c.name.toLowerCase().includes(searchTerm));
+            showRM(filtered);
+            formRM.value = '';
+        } else {
+            showRM(allRM);
+        }
+    };
+</script>
+</body>
+</html>
